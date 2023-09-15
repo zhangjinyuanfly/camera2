@@ -142,17 +142,18 @@ class MainActivity : ComponentActivity() {
     private fun previewCamera(cameraDevice: CameraDevice) {
 
         val surfaceTexture = textureView.surfaceTexture
-        eglHelper = EglHelper(surfaceTexture,)
+        eglHelper = EglHelper(surfaceTexture)
 
 
         previewSize?.let {
-//            surfaceTexture?.setDefaultBufferSize(it.width, it.height)
+            surfaceTexture?.setDefaultBufferSize(it.width, it.height)
             eglHelper?.setPreViewSize(it)
         }
 
         val xuanranSurfaceTexture = eglHelper?.getXuanranSurfaceTexture()
         Log.d("zjy","getXuanranSurfaceTexture = $xuanranSurfaceTexture")
         val surface = Surface(xuanranSurfaceTexture)
+//        val surface = Surface(surfaceTexture)
 
 
         val createCaptureRequest = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)

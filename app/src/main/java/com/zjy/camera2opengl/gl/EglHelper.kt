@@ -14,9 +14,8 @@ import android.os.Message
 import android.util.Log
 import android.util.Size
 import com.zjy.camera2opengl.utils.TextureUtil
-import javax.microedition.khronos.egl.EGL10
 
-class EglHelper(var surfaceTexture: SurfaceTexture?) {
+class EglHelper(var cameraSurfaceTexture: SurfaceTexture?) {
 
     companion object {
         private const val TAG = "EglHelper"
@@ -208,7 +207,7 @@ class EglHelper(var surfaceTexture: SurfaceTexture?) {
 
         val surfaceAttributes = intArrayOf( EGL14.EGL_NONE
         )
-        eglSurface = EGL14.eglCreateWindowSurface(eglDisplay, eglConfig, surfaceTexture, surfaceAttributes, 0)
+        eglSurface = EGL14.eglCreateWindowSurface(eglDisplay, eglConfig, cameraSurfaceTexture, surfaceAttributes, 0)
 
         if(eglSurface == EGL14.EGL_NO_SURFACE) {
             Log.d("zjy","initEGL = ${EGL14.eglGetError()}")
@@ -224,8 +223,6 @@ class EglHelper(var surfaceTexture: SurfaceTexture?) {
         if(eglContext == EGL14.EGL_NO_CONTEXT) {
             throw Exception("eglcontext create fail")
         }
-
-
 
 //        eglSurface = EGL14.eglCreatePbufferSurface(eglDisplay, eglConfig, surfaceAttributes, 0)
         val b = EGL14.eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext)

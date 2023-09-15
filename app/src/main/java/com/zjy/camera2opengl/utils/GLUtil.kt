@@ -1,6 +1,7 @@
 package com.zjy.camera2opengl.utils
 
 import android.opengl.GLES20
+import android.util.Log
 import com.zjy.camera2opengl.App
 import java.io.BufferedReader
 import java.io.IOException
@@ -17,12 +18,14 @@ object GLUtil {
 
         var program = GLES20.glCreateProgram()
 
+        Log.d("GLUtil","$vertextShader - $fragmentShader - $program")
+
         GLES20.glAttachShader(program, vertextShader)
         GLES20.glAttachShader(program, fragmentShader)
 
         GLES20.glLinkProgram(program)
 
-        val linked = IntArray(1)
+        val linked = intArrayOf(0)
         GLES20.glGetProgramiv(program, GLES20.GL_LINK_STATUS, linked, 0)
         if(program == 0) {
             GLES20.glDeleteProgram(program)
@@ -36,6 +39,7 @@ object GLUtil {
 
     fun loadShader(type: Int, shaderRes:String): Int {
         val shaderType = GLES20.glCreateShader(type)
+        Log.d("GLUtil","shaderType = $shaderType shaderRes = $shaderRes")
         if(shaderType == 0) {
             return 0
         }
@@ -43,9 +47,10 @@ object GLUtil {
         GLES20.glShaderSource(shaderType, shaderRes)
         GLES20.glCompileShader(shaderType);
 
-        val complited = IntArray(1)
-        GLES20.glGetShaderiv(shaderType, GLES20.GL_SHADER_COMPILER, complited, 0)
+        val complited = intArrayOf(0)
+        GLES20.glGetShaderiv(shaderType, GLES20.GL_COMPILE_STATUS, complited, 0)
         if(complited[0] == 0) {
+            Log.d("GLUtil","complited err ${GLES20.glGetError()} - ${GLES20.glGetShaderInfoLog(shaderType)}")
             GLES20.glDeleteShader(shaderType)
             return 0
         }

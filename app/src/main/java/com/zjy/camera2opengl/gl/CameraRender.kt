@@ -1,6 +1,7 @@
 package com.zjy.camera2opengl.gl
 
 import android.opengl.GLES20
+import android.util.Log
 import com.zjy.camera2opengl.R
 import com.zjy.camera2opengl.utils.GLUtil
 
@@ -36,11 +37,14 @@ class CameraRender {
     fun initAttribute() {
         // Retrieve attribute locations for the shader program.
         aPositionLocation = GLES20.glGetAttribLocation(program, POSITION_ATTRIBUTE)
+        Log.d("CameraRender","aPositionLocation = $aPositionLocation")
         aTextureCoordinateLocation = GLES20.glGetAttribLocation(program, TEXTURE_COORDINATE_ATTRIBUTE)
-
+        Log.d("CameraRender","aTextureCoordinateLocation = $aTextureCoordinateLocation")
         // Retrieve uniform locations for the shader program
         uTextureMatrixLocation = GLES20.glGetUniformLocation(program, TEXTURE_MATRIX_UNIFORM)
         uTextureSamplerLocation = GLES20.glGetUniformLocation(program, TEXTURE_SAMPLER_UNIFORM)
+        Log.d("CameraRender","uTextureMatrixLocation = $uTextureMatrixLocation")
+        Log.d("CameraRender","uTextureSamplerLocation = $uTextureSamplerLocation")
     }
 
 

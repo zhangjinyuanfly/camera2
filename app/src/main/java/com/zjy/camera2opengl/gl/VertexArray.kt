@@ -36,4 +36,5 @@ class VertexArray(vertexData: FloatArray) {
     fun disableVertexAttributeArray(attributeLoc: Int) {
         GLES20.glDisableVertexAttribArray(attributeLoc)
     }
+
 }
