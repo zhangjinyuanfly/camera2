@@ -164,16 +164,15 @@ class EglHelper(var cameraSurfaceTexture: SurfaceTexture?) {
             inputSurfaceTexture?.setOnFrameAvailableListener(listener)
         }
 
-        inputSurfaceTexture?.setDefaultBufferSize(width,height)
+        inputSurfaceTexture?.setDefaultBufferSize(height, width)
         synchronized(mLock) {
             mLock.notify()
         }
 
         // init  fbo
-        GLES20.glViewport(0, 0, height, width)
+        GLES20.glViewport(0, 0, width, height)
 
         createFrameBufferAndTexture()
-
 
     }
 
@@ -242,8 +241,8 @@ class EglHelper(var cameraSurfaceTexture: SurfaceTexture?) {
     }
 
     fun setPreViewSize(size: Size) {
-        this.width = size.width
-        this.height = size.height
+        this.width = size.height
+        this.height =  size.width
 
         mEGLHandler?.sendEmptyMessage(M_SIZE_CHANGE)
 

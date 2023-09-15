@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
             }
 
             override fun onSurfaceTextureSizeChanged(p0: SurfaceTexture, p1: Int, p2: Int) {
-                configureTransform(p1, p2)
+//                configureTransform(p1, p2)
             }
 
             override fun onSurfaceTextureDestroyed(p0: SurfaceTexture): Boolean {
@@ -108,9 +108,10 @@ class MainActivity : ComponentActivity() {
                             height
                         )
 
+                        previewSize?.let {
+                            textureView.setAspectRatio(it.height, it.width)
+                        }
 
-
-                        textureView.setAspectRatio(width, height)
                         Log.d("zjy", "selectcamera")
                         cameraManager.openCamera(id, cameraCallback, cameraHandler)
 
@@ -146,7 +147,8 @@ class MainActivity : ComponentActivity() {
 
 
         previewSize?.let {
-            surfaceTexture?.setDefaultBufferSize(it.width, it.height)
+            Log.d("previewSize","width = ${it.width} - ${it.height}")
+            surfaceTexture?.setDefaultBufferSize(it.height, it.width)
             eglHelper?.setPreViewSize(it)
         }
 
